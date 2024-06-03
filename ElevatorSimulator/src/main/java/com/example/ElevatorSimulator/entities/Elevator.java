@@ -36,7 +36,7 @@ public class Elevator implements Runnable{
                movingUp = false;
                currentFloor--;
            } else {
-               floorRequests.remove(Integer.valueOf(nearestFloor)); //arrived at destination
+               floorRequests.remove(Integer.valueOf(nearestFloor));
            }
        }
 

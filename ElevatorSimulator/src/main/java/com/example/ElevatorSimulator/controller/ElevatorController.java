@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
+@RequestMapping("/elevators")
 @CrossOrigin(origins = "http://localhost:3000")
 public class ElevatorController {
     private List<Elevator> elevators;
@@ -22,7 +23,7 @@ public class ElevatorController {
                 new Elevator("Elevator 2")
         ).collect(Collectors.toList());
     }
-    @GetMapping("/elevators")
+    @GetMapping
     public List<Elevator> getElevators(){
         return Simulator.getInstance().getElevators();
     }

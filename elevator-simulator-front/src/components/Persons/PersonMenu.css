@@ -1,11 +1,40 @@
 .list-persons{
     display:flex;
     flex-direction:row;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
-.remove-name{
+.remove-person-button{
     display:flex;
     align-items:center;
     justify-content:center;
     margin-left: 13px;
     cursor:pointer;
+}
+.make-request-button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border: 2px solid grey;
+    color: yellow;
+    background-color:grey;
+    font-weight: bold;
+    cursor:pointer;
+    margin-left:53px;
+    padding: 10px;
+}
+.person-list{ 
+    display:flex;
+    flex-direction:row;
+} 
+.person{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:50%;
+}
+.person-list-content{
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }

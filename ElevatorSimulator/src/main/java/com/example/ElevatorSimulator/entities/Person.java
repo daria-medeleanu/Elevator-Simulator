@@ -13,6 +13,10 @@ public class Person {
     @Column(name = "currentfloor")
     private int currentFloor;
     private int destinationFloor;
+//    private String direction;
+    @Transient
+    private Elevator assignedElevator;
+
 
     public Person(){
 
@@ -20,7 +24,7 @@ public class Person {
     public Person(String name, int currentFloor){
         this.name = name;
         this.currentFloor = currentFloor;
-        this.destinationFloor = destinationFloor;
+//        this.destinationFloor = destinationFloor;
     }
     public Long getId(){
         return id;
@@ -45,9 +49,15 @@ public class Person {
         this.destinationFloor = destinationFloor;
     }
 
-    public void requestElevator(){
-        System.out.println(name + " is requesting an elevator to floor " + currentFloor);
-        Simulator.getInstance().requestElevator(this);
+//    public void requestElevator(){
+//        System.out.println(name + " is requesting an elevator to floor " + destinationFloor);
+//        Simulator.getInstance().requestElevator(this, );
+//    }
+    public Elevator getAssignedElevator(){
+        return assignedElevator;
+    }
+    public void setAssignedElevator(Elevator assignedElevator){
+        this.assignedElevator = assignedElevator;
     }
 
 }
