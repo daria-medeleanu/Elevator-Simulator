@@ -2,27 +2,33 @@ package com.example.ElevatorSimulator;
 
 import com.example.ElevatorSimulator.entities.Elevator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Simulator {
+    private static Simulator instance;
+    private List<Elevator> elevators;
     public boolean running;
     public Simulator(){
+        this.elevators = new ArrayList<>();
+        this.elevators.add(new Elevator("Elevator 1"));
+        this.elevators.add(new Elevator("Elevator 2"));
+        this.running = true;
         initializeThreads();
     }
-    public void initializeThreads(){
-        Elevator e1 = new Elevator();
-        Elevator e2 = new Elevator();
-        Elevator e3 = new Elevator();
-        Thread t1 = new Thread(e1);
-        Thread t2 = new Thread(e2);
-        Thread t3 = new Thread(e3);
-        t1.start();
-        t2.start();
-        t3.start();
-        while(running){
-
+    public static synchronized Simulator getInstance(){
+        if(instance == null){
+            instance = new Simulator();
         }
-        t1.interrupt();
-        t2.interrupt();
-        t3.interrupt();
-
+        return instance;
+    }
+    public void initializeThreads() {
+        for(Elevator elevator : elevators){
+            Thread thread = new Thread(elevator);
+            thread.start();
+        }
+    }
+    public List<Elevator> getElevators(){
+        return elevators;
     }
 }

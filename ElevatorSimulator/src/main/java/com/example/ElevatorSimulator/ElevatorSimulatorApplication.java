@@ -8,7 +8,7 @@ public class ElevatorSimulatorApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ElevatorSimulatorApplication.class, args);
-		Simulator sim = new Simulator();
+		Simulator.getInstance();
 	}
 
 }
