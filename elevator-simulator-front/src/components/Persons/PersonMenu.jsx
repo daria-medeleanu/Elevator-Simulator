@@ -7,6 +7,8 @@ const PersonMenu = () => {
     const [persons, setPersons] = useState([]);
     const [newPersonName, setNewPersonName] = useState("");
     const [newPersonFloor, setNewPersonFloor] = useState("");
+    const [newPersonDestinationFloor, setNewPersonDestinationFloor] = useState("");
+
 
     const fetchPersons = async () => {
         try{
@@ -24,10 +26,12 @@ const PersonMenu = () => {
         try{
             const response = await axios.post('http://localhost:8082/persons', {
                 name: newPersonName,
-                currentFloor : parseInt(newPersonFloor)
+                currentFloor : parseInt(newPersonFloor),
+                destinationFloor : parseInt(newPersonDestinationFloor)
             });
             setNewPersonName(''); 
             setNewPersonFloor('');
+            setNewPersonDestinationFloor('');
             fetchPersons();
         }catch(error){
             console.log("Error adding person: ", error);
@@ -49,7 +53,7 @@ const PersonMenu = () => {
                 {persons.map((person) => {
                     return (
                         <div key={person.id} className="list-persons">
-                            <li>{person.name} is at floor {person.currentFloor}</li>
+                            <li>{person.name} is at floor {person.currentFloor} and wants to go to floor {person.destinationFloor}</li>
                             <div className="remove-name" onClick={() => handleDeletePerson(person.id)}>  < MdDelete /> </div>
                         </div>
                     )
@@ -65,11 +69,19 @@ const PersonMenu = () => {
                     />
                 </label>
                 <label>
-                    Floor:
+                    Current floor:
                     <input 
                         type="number"
                         value={newPersonFloor}
                         onChange={(e)=>setNewPersonFloor(e.target.value)}
+                    />
+                </label>
+                <label>
+                    Destination floor:
+                    <input 
+                        type="number"
+                        value={newPersonDestinationFloor}
+                        onChange={(e)=>setNewPersonDestinationFloor(e.target.value)}
                     />
                 </label>
                 <button type="submit" >Add person</button>
