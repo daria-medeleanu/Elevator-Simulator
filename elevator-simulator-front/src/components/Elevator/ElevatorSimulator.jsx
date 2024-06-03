@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function ElevatorSimulator() {
+export function ElevatorSimulator() {
   const [elevators, setElevators] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function ElevatorSimulator() {
       }
     };
 
-    fetchElevators();
+    // fetchElevators();
     const intervalId = setInterval(fetchElevators, 1000);
 
     return () => clearInterval(intervalId);

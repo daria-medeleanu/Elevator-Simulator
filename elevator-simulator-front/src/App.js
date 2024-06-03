@@ -1,11 +1,9 @@
-// import logo from './logo.svg';
-// import './App.css';
-import ElevatorSimulator from './components/ElevatorSimulator'; 
+import HomePage from "./pages/homepage";
 
 function App() {
   return (
     <div className="App">
-      <ElevatorSimulator />
+      < HomePage />
     </div>
   );
 }

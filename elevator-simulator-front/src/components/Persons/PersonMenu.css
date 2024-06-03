@@ -1,0 +1,11 @@
+.list-persons{
+    display:flex;
+    flex-direction:row;
+}
+.remove-name{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-left: 13px;
+    cursor:pointer;
+}
