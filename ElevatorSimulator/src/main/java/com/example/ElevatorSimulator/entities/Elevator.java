@@ -1,14 +1,19 @@
 package com.example.ElevatorSimulator.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Elevator implements Runnable{
     private String name;
     private int currentFloor;
     private boolean movingUp;
+    private List<Integer> floorRequests;
 
     public Elevator(String name){
         this.name = name;
         this.currentFloor = 0;
         this.movingUp = true;
+        this.floorRequests = new ArrayList<>();
     }
     @Override
     public void run(){
@@ -22,20 +27,26 @@ public class Elevator implements Runnable{
         }
     }
     public void move() {
-        if (movingUp) {
-            if (currentFloor < 9) {
-                currentFloor++;
-            } else {
-                movingUp = false;
-            }
-        } else {
-            if (currentFloor > 0) {
-                currentFloor--;
-            } else {
-                movingUp = true;
-            }
-        }
+       if(!floorRequests.isEmpty()){
+           int nearestFloor = findNearestFloor();
+           if(currentFloor < nearestFloor){
+               movingUp = true;
+               currentFloor++;
+           } else if (currentFloor > nearestFloor){
+               movingUp = false;
+               currentFloor--;
+           } else {
+               floorRequests.remove(Integer.valueOf(nearestFloor)); //arrived at destination
+           }
+       }
+
         System.out.println(getName() + " is at floor " + getCurrentFloor());
+    }
+
+    private int findNearestFloor() {
+        return floorRequests.stream()
+                .min((floor1, floor2) -> Math.abs(currentFloor - floor1) - Math.abs(currentFloor - floor2))
+                .orElse(currentFloor);
     }
     public int getCurrentFloor(){
         return currentFloor;
@@ -45,5 +56,11 @@ public class Elevator implements Runnable{
     }
     public boolean getMovingUp(){
         return movingUp;
+    }
+
+    public void addFloorRequest(int destinationFloor) {
+        if(!floorRequests.contains(destinationFloor)){
+            floorRequests.add(destinationFloor);
+        }
     }
 }
