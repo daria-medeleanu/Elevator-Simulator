@@ -52,7 +52,7 @@ public class Simulator {
         System.out.println("asociem persoanei" + person.getName() + "liftul" + fastestElevator.getName()
         );
         person.setAssignedElevator(fastestElevator);
-        System.out.println("assignedelevator " + person.getName() + person.getAssignedElevator().getName());
+        System.out.println("assigned elevator " + person.getName() + person.getAssignedElevator().getName());
         return fastestElevator;
     }
     private int calculateCscanTime(Elevator elevator, int targetFloor, boolean goingUp) {
@@ -65,6 +65,13 @@ public class Simulator {
     }
     public void setDestinationFloor(Elevator elevator, int destinationFloor){
         elevator.addFloorRequest(destinationFloor);
+    }
+
+    public Elevator getElevatorByName(String name) {
+        return elevators.stream()
+                .filter(elevator -> elevator.getName().equals(name))
+                .findFirst()
+                .orElse(null);
     }
 
 }

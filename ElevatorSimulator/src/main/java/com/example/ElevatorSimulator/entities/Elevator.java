@@ -8,12 +8,14 @@ public class Elevator implements Runnable{
     private int currentFloor;
     private boolean movingUp;
     private List<Integer> floorRequests;
+    private List<Person> persons;
 
     public Elevator(String name){
         this.name = name;
         this.currentFloor = 0;
         this.movingUp = true;
         this.floorRequests = new ArrayList<>();
+        this.persons = new ArrayList<>();
     }
     @Override
     public void run(){
@@ -62,5 +64,17 @@ public class Elevator implements Runnable{
         if(!floorRequests.contains(destinationFloor)){
             floorRequests.add(destinationFloor);
         }
+    }
+
+    public List<Person> getPersons(){
+        return persons;
+    }
+
+    public void addPerson(Person person){
+        persons.add(person);
+    }
+
+    public void removePerson(Person person){
+        persons.remove(person);
     }
 }

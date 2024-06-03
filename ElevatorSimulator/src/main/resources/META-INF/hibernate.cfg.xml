@@ -6,7 +6,7 @@
     <session-factory>
         <property name="connection.url">jdbc:postgresql://localhost:5432/elevator</property>
         <property name="connection.username">postgres</property>
-        <property name="connection.password">pass</property>
+        <property name="connection.password">cafeluta</property>
 
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->

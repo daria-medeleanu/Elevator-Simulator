@@ -4,6 +4,7 @@ import './ElevatorSimulator.css'
 
 export function ElevatorSimulator() {
   const [elevators, setElevators] = useState([]);
+  const [persons, setPersons] = useState([]);
 
   useEffect(() => {
     const fetchElevators = async () => {
@@ -16,11 +17,22 @@ export function ElevatorSimulator() {
       }
     };
 
-    // fetchElevators();
-    const intervalId = setInterval(fetchElevators, 1000);
+    const fetchPersons = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8082/persons/elevator/${elevators[0].name}/persons`);
+        setPersons(response.data);
+      } catch (error) {
+        console.error('Failed to fetch persons:', error);
+      }
+    };
+
+    const intervalId = setInterval(() => {
+      fetchElevators();
+      fetchPersons();
+    }, 1000);
 
     return () => clearInterval(intervalId);
-  
+
   }, []);
 
   const floorHeight =50;
@@ -34,6 +46,10 @@ export function ElevatorSimulator() {
            <li key={elevator.name}>{elevator.name} is at floor {elevator.currentFloor}</li>
          ))}
         </ul>
+        <h2>Persons in the elevator:</h2>
+        {persons.map(person => (
+            <p key={person.id}>{person.name}</p>
+        ))}
       </div>
       <div className="building">
         {[...Array(10)].map((_,i) => (
