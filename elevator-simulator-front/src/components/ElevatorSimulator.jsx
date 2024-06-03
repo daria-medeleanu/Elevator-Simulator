@@ -15,9 +15,8 @@ export default function ElevatorSimulator() {
     };
 
     fetchElevators();
-    const intervalId = setInterval(fetchElevators, 1000); // Adjust the interval as needed (e.g., every 1 second)
+    const intervalId = setInterval(fetchElevators, 1000);
 
-    // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
   
   }, []);
