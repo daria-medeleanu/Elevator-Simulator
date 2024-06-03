@@ -1,5 +1,9 @@
 package com.example.ElevatorSimulator.controller;
 
+import com.example.ElevatorSimulator.DestinationRequest;
+import com.example.ElevatorSimulator.RequestElevator;
+import com.example.ElevatorSimulator.Simulator;
+import com.example.ElevatorSimulator.entities.Elevator;
 import com.example.ElevatorSimulator.entities.Person;
 import com.example.ElevatorSimulator.repositories.PersonRepository;
 import org.springframework.web.bind.annotation.*;
@@ -24,5 +28,21 @@ public class PersonController {
     @DeleteMapping("/{id}")
     public void deletePerson(@PathVariable Long id) {
         personRepository.deleteById(id);
+    }
+    @PostMapping("/request-elevator")
+    public Elevator requestElevator(@RequestBody RequestElevator request){
+        Person person = request.getPerson();
+        String direction = request.getDirection();
+        return Simulator.getInstance().requestElevator(person, direction);
+    }
+
+    @PostMapping("/set-destination")
+    public void setDestination(@RequestBody DestinationRequest destinationRequest) {
+        System.out.println("Acesta este id-ul: " + destinationRequest.getPersonId() + " iar aceasta este destinatia: " + destinationRequest.getDestinationFloor());
+        Person person = personRepository.findById(destinationRequest.getPersonId());
+//        System.out.println("Aceasta este persoana" + person.getDestinationFloor());
+        Elevator assignedElevator = person.getAssignedElevator();
+//        System.out.println("Liftul " + assignedElevator.getName() + "e ok");
+        Simulator.getInstance().setDestinationFloor(assignedElevator, destinationRequest.getDestinationFloor());
     }
 }

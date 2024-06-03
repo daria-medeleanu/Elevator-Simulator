@@ -25,4 +25,7 @@ public class PersonRepository {
             entityManager.remove(person);
         }
     }
+    public Person findById(Long id){
+        return entityManager.find(Person.class, id);
+    }
 }
