@@ -28,15 +28,15 @@ public class Elevator implements Runnable{
     }
     public void move() {
        if(!floorRequests.isEmpty()){
-           int nearestFloor = findNearestFloor();
-           if(currentFloor < nearestFloor){
+           int nextFloor = floorRequests.get(0);
+           if(currentFloor < nextFloor){
                movingUp = true;
                currentFloor++;
-           } else if (currentFloor > nearestFloor){
+           } else if (currentFloor > nextFloor){
                movingUp = false;
                currentFloor--;
            } else {
-               floorRequests.remove(Integer.valueOf(nearestFloor));
+               floorRequests.remove(0);
            }
        }
 
