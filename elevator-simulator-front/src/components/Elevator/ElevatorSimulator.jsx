@@ -31,7 +31,7 @@ export function ElevatorSimulator() {
         <h1>Elevator Simulator</h1>
         <ul>
          {elevators.map((elevator) => (
-           <li key={elevator.name}>{elevator.name} is at floor {elevator.currentFloor}</li>
+           <li key={elevator.name}>{elevator.name} is at floor {elevator.currentFloor} and has requests at: {elevator.floorRequests}</li>
          ))}
         </ul>
       </div>
