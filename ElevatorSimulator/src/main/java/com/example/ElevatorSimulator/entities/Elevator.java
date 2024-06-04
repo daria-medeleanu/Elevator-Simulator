@@ -7,6 +7,7 @@ public class Elevator implements Runnable{
     private String name;
     private int currentFloor;
     private boolean movingUp;
+//    private boolean busy;
     private List<Integer> floorRequests;
 
     public Elevator(String name){
@@ -60,9 +61,9 @@ public class Elevator implements Runnable{
     }
 
     public void addFloorRequest(int destinationFloor) {
-        if(!floorRequests.contains(destinationFloor)){
+        //if(!floorRequests.contains(destinationFloor)){
             floorRequests.add(destinationFloor);
-        }
+        //}
     }
     public List<Integer> getFloorRequests(){
         return this.floorRequests;
