@@ -57,6 +57,7 @@ public class Person {
         return assignedElevator;
     }
     public void setAssignedElevator(Elevator assignedElevator){
+        System.out.println("Persoana "+this.getName() + "are asignat liftul " + assignedElevator.getName());
         this.assignedElevator = assignedElevator;
     }
 

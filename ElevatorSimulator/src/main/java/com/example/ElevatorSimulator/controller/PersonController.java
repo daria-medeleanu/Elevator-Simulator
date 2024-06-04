@@ -16,6 +16,7 @@ public class PersonController {
     private final PersonRepository personRepository;
     public PersonController(PersonRepository personRepository){
         this.personRepository = personRepository;
+        Simulator.getInstance();
     }
     @GetMapping
     public List<Person> getAllPersons(){
@@ -30,19 +31,20 @@ public class PersonController {
         personRepository.deleteById(id);
     }
     @PostMapping("/request-elevator")
-    public Elevator requestElevator(@RequestBody RequestElevator request){
+    public void requestElevator(@RequestBody RequestElevator request){
         Person person = request.getPerson();
         String direction = request.getDirection();
-        return Simulator.getInstance().requestElevator(person, direction);
+        person.setAssignedElevator(Simulator.getInstance().requestElevator(person, direction));
+        System.out.println("requestElevator person-controller" +person.getAssignedElevator());
     }
 
     @PostMapping("/set-destination")
     public void setDestination(@RequestBody DestinationRequest destinationRequest) {
         System.out.println("Acesta este id-ul: " + destinationRequest.getPersonId() + " iar aceasta este destinatia: " + destinationRequest.getDestinationFloor());
         Person person = personRepository.findById(destinationRequest.getPersonId());
-//        System.out.println("Aceasta este persoana" + person.getDestinationFloor());
-        Elevator assignedElevator = person.getAssignedElevator();
+        System.out.println("Aceasta este persoana" + person.getName() + person.getCurrentFloor() + person.getAssignedElevator());
+//        Elevator assignedElevator = person.getAssignedElevator();
 //        System.out.println("Liftul " + assignedElevator.getName() + "e ok");
-        Simulator.getInstance().setDestinationFloor(assignedElevator, destinationRequest.getDestinationFloor());
+//        Simulator.getInstance().setDestinationFloor(assignedElevator, destinationRequest.getDestinationFloor());
     }
 }

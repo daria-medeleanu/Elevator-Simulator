@@ -34,7 +34,7 @@ public class Simulator {
         return elevators;
     }
 
-    public Elevator requestElevator(Person person, String direction) {
+    public synchronized Elevator requestElevator(Person person, String direction) {
         Elevator fastestElevator = null;
         int shortestTime = Integer.MAX_VALUE;
 

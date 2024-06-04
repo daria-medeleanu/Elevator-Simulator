@@ -59,6 +59,8 @@ public class Elevator implements Runnable{
     }
 
     public void addFloorRequest(int destinationFloor) {
+        System.out.println("There is a new floor requst" + destinationFloor);
+        System.out.println(this.floorRequests);
         if(!floorRequests.contains(destinationFloor)){
             floorRequests.add(destinationFloor);
         }
