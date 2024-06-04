@@ -45,32 +45,22 @@ const PersonMenu = () => {
             console.error('Error deleting a person:', error);
         }
     };
-    const handleRequestElevator = async (person) => {
-        try{
-            const response = await axios.post('http://localhost:8082/persons/request-elevator',{
-                person, 
-                direction
-            });
-            setSelectedPerson(person);
-            console.log("Elevator assigned: ", response.data);
-        }catch(error){
-            console.error("Error requesting elevator:", error);
-        }
-    };
 
-    const handleSetDestination = async (e) => {
+    const handleRequestElevatorAndSetDestination = async (e) => {
         e.preventDefault();
         const body = {
             personId: selectedPerson.id,
-            destinationFloor: parseInt(destinationFloor)
-        }
-        try{
+            destinationFloor: parseInt(destinationFloor),
+            direction: direction
+        };
+
+        try {
             console.log(body);
-            await axios.post('http://localhost:8082/persons/set-destination', body);
+            await axios.post('http://localhost:8082/persons/request-elevator', body);
             setDestinationFloor('');
             setSelectedPerson(null);
             fetchPersons();
-        }catch(error){
+        } catch (error) {
             console.log("Error setting destination: ", error);
         }
     };
@@ -89,7 +79,7 @@ const PersonMenu = () => {
                                 <MdDelete />
                             </div>
                         </div>
-                        <div className="make-request-button" onClick={()=>handleRequestElevator(person)} >
+                        <div className="make-request-button" onClick={()=>setSelectedPerson(person)}>
                             Make request
                         </div>
                     </div>
@@ -115,7 +105,7 @@ const PersonMenu = () => {
                 <button type="submit" >Add person</button>
             </form>
             {selectedPerson && (
-                <form onSubmit={handleSetDestination} className="destination-form">
+                <form onSubmit={handleRequestElevatorAndSetDestination} className="destination-form">
                     <h2>Set destination for {selectedPerson.name}</h2>
                     <label>
                         Destination floor:

@@ -40,7 +40,8 @@ public class Elevator implements Runnable{
            }
        }
 
-        System.out.println(getName() + " is at floor " + getCurrentFloor());
+        System.out.println(getName() + " is at floor " + getCurrentFloor() + "and has this destinations" + getFloorRequests());
+
     }
 
     private int findNearestFloor() {
@@ -62,5 +63,8 @@ public class Elevator implements Runnable{
         if(!floorRequests.contains(destinationFloor)){
             floorRequests.add(destinationFloor);
         }
+    }
+    public List<Integer> getFloorRequests(){
+        return this.floorRequests;
     }
 }
